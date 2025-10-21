@@ -14,9 +14,10 @@ export interface TokenList {
 
 export const getTokenList = async (chainId: number): Promise<Token[]> => {
   try {
+    // Use absolute URL for production
     const baseUrl = process.env.NODE_ENV === 'development' 
       ? 'http://localhost:3000' 
-      : ''
+      : 'https://crypto-oracle-fortune.vercel.app'
     const response = await fetch(`${baseUrl}/tokenlist.${chainId === 7001 ? 'zeta' : 'sepolia'}.json`)
     const data: TokenList = await response.json()
     return data.tokens
