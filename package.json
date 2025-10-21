@@ -1,0 +1,71 @@
+{
+  "name": "crypto-oracle-fortune",
+  "version": "1.0.0",
+  "description": "AI-powered crypto fortune generator with Web3 integration",
+  "author": "Mario Ruiz Diaz",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marioruizdiaz/crypto-oracle-fortune.git"
+  },
+  "homepage": "https://crypto-oracle-fortune.vercel.app",
+  "keywords": [
+    "crypto",
+    "web3",
+    "ai",
+    "nextjs",
+    "typescript",
+    "blockchain",
+    "fortune",
+    "oracle"
+  ],
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack --no-lint",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
+    "type-check": "tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "setup": "chmod +x scripts/setup.sh && ./scripts/setup.sh",
+    "clean": "rm -rf .next node_modules package-lock.json",
+    "fresh-install": "npm run clean && npm install"
+  },
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.0.8",
+    "@tanstack/react-query": "^5.59.16",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.17",
+    "lucide-react": "^0.460.0",
+    "next": "15.5.6",
+    "openai": "^4.67.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwind-merge": "^2.5.4",
+    "viem": "^2.21.45",
+    "wagmi": "^2.18.1",
+    "zod": "^3.23.8",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.3.3",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.6",
+    "jsdom": "^25.0.1",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
+  }
+}
