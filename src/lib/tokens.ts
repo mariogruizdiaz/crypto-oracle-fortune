@@ -12,17 +12,34 @@ export interface TokenList {
   tokens: Token[]
 }
 
-// Import token lists from src/data
-import zetaTokens from '../data/tokenlist.zeta.json'
-import sepoliaTokens from '../data/tokenlist.sepolia.json'
+// Hardcoded token lists to avoid import issues
+const ZETA_TOKENS: Token[] = [
+  {
+    address: "0x0000000000000000000000000000000000000000",
+    symbol: "ZETA",
+    name: "ZetaChain Native Token",
+    decimals: 18,
+    chainId: 7001
+  }
+]
+
+const SEPOLIA_TOKENS: Token[] = [
+  {
+    address: "0x0000000000000000000000000000000000000000",
+    symbol: "ETH",
+    name: "Ethereum Native Token",
+    decimals: 18,
+    chainId: 11155111
+  }
+]
 
 export const getTokenList = async (chainId: number): Promise<Token[]> => {
   try {
-    // Return static token lists
+    // Return hardcoded token lists
     if (chainId === 7001) {
-      return (zetaTokens as TokenList).tokens
+      return ZETA_TOKENS
     } else {
-      return (sepoliaTokens as TokenList).tokens
+      return SEPOLIA_TOKENS
     }
   } catch (error) {
     console.error('Error fetching token list:', error)
