@@ -3,10 +3,6 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "env": {
-    "OPENAI_API_KEY": "@openai_api_key",
-    "NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID": "@walletconnect_project_id"
-  },
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
