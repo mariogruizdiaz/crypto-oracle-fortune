@@ -12,15 +12,18 @@ export interface TokenList {
   tokens: Token[]
 }
 
+// Import token lists statically
+import zetaTokens from '../../public/tokenlist.zeta.json'
+import sepoliaTokens from '../../public/tokenlist.sepolia.json'
+
 export const getTokenList = async (chainId: number): Promise<Token[]> => {
   try {
-    // Use absolute URL for production
-    const baseUrl = process.env.NODE_ENV === 'development' 
-      ? 'http://localhost:3000' 
-      : 'https://crypto-oracle-fortune.vercel.app'
-    const response = await fetch(`${baseUrl}/tokenlist.${chainId === 7001 ? 'zeta' : 'sepolia'}.json`)
-    const data: TokenList = await response.json()
-    return data.tokens
+    // Return static token lists
+    if (chainId === 7001) {
+      return (zetaTokens as TokenList).tokens
+    } else {
+      return (sepoliaTokens as TokenList).tokens
+    }
   } catch (error) {
     console.error('Error fetching token list:', error)
     return []
