@@ -185,7 +185,25 @@ npm run lint
 
 ---
 
+## 👨‍💻 About the Author
+
 <div align="center">
+
+**Mario Ruiz Diaz**  
+*Senior Full Stack Developer | Hands-On Software Architect | CTO/Tech Lead | AI & Cloud-Native Expert | Principal Engineer*
+
+**Tech Architect | Hands-On CTO | Cloud-Native & AI Strategist**
+
+I lead the design and delivery of scalable, cloud-native platforms that power AI, automation, and growth. With 20+ years of experience, I architect robust software systems—300+ microservices, resilient DevOps, and AI-driven pipelines—across AWS, Azure, and GCP.
+
+I specialize in building cost-effective, multi-cloud architectures using Docker, Kubernetes, Terraform, and low-code automation (Make, n8n). My solutions boost reliability, reduce time-to-market, and unlock business agility for startups and enterprises alike.
+
+I enjoy connecting with builders and thinkers who share a passion for systems, strategy, and technology that makes a real impact.
+
+**📧 Contact:** [mariogrd@gmail.com](mailto:mariogrd@gmail.com)  
+**💼 LinkedIn:** [linkedin.com/in/marioruizdiaz](https://www.linkedin.com/in/marioruizdiaz/)
+
+---
 
 **Built with ❤️ by Mario Ruiz Diaz**
 
