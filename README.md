@@ -190,15 +190,15 @@ npm run lint
 <div align="center">
 
 **Mario Ruiz Diaz**  
-*Senior Full Stack Developer | Hands-On Software Architect | CTO/Tech Lead | AI & Cloud-Native Expert | Principal Engineer*
+*Principal Engineer | CTO | Tech Founder | AI & Cloud-Native Architect*
 
-**Tech Architect | Hands-On CTO | Cloud-Native & AI Strategist**
+**The Visionary Behind the Oracle**
 
-I lead the design and delivery of scalable, cloud-native platforms that power AI, automation, and growth. With 20+ years of experience, I architect robust software systems—300+ microservices, resilient DevOps, and AI-driven pipelines—across AWS, Azure, and GCP.
+Mario is a seasoned technology leader with 22+ years of experience building the future. As a Principal Engineer and hands-on CTO, he has architected and delivered over 300 microservices across AWS, Azure, and GCP, creating resilient systems that power AI-driven automation and business growth.
 
-I specialize in building cost-effective, multi-cloud architectures using Docker, Kubernetes, Terraform, and low-code automation (Make, n8n). My solutions boost reliability, reduce time-to-market, and unlock business agility for startups and enterprises alike.
+His journey spans from founding tech startups to leading enterprise transformations, specializing in cost-effective multi-cloud architectures using Docker, Kubernetes, and Terraform. Mario's solutions have consistently reduced time-to-market while unlocking business agility for both startups and Fortune 500 companies.
 
-I enjoy connecting with builders and thinkers who share a passion for systems, strategy, and technology that makes a real impact.
+Beyond the code, Mario is a strategic thinker who connects the dots between technology and business impact. He thrives on building systems that matter—platforms that scale, AI that delivers, and solutions that transform how organizations operate.
 
 **📧 Contact:** [mariogrd@gmail.com](mailto:mariogrd@gmail.com)  
 **💼 LinkedIn:** [linkedin.com/in/marioruizdiaz](https://www.linkedin.com/in/marioruizdiaz/)
