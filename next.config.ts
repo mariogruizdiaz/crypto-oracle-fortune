@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   turbopack: {
-    root: '/Users/marioruizdiaz/Documents/Tech/crypto-oracle-fortune/crypto-oracle-fortune',
     rules: {
       '*.svg': {
         loaders: ['@svgr/webpack'],
