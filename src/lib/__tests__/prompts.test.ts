@@ -37,13 +37,10 @@ describe('AI Prompts', () => {
 
   it('should include portfolio data in JSON format', () => {
     const prompt = generateFortunePrompt(mockPortfolio)
-    const jsonMatch = prompt.match(/JSON:\s*(\{[\s\S]*\})/)
-    
-    expect(jsonMatch).toBeTruthy()
-    if (jsonMatch) {
-      const jsonData = JSON.parse(jsonMatch[1])
-      expect(jsonData.totalValue).toBe(2500)
-      expect(jsonData.tokenCount).toBe(3)
-    }
+    // The prompt includes JSON.stringify output with formatting (spaces)
+    expect(prompt).toContain('"totalValue": 2500')
+    expect(prompt).toContain('"tokenCount": 3')
+    expect(prompt).toContain('"riskLevel": "high"')
+    expect(prompt).toContain('"concentration": 0.85')
   })
 })

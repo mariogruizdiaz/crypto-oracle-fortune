@@ -56,6 +56,7 @@ describe('Portfolio Calculations', () => {
   it('should handle large numbers', () => {
     const largeBalance = '123456789012345678901234567890'
     const formatted = formatTokenBalance(largeBalance, 18)
-    expect(formatted).toBe('123456789012345678901234567890')
+    // The function should format large numbers correctly, not return raw string
+    expect(formatted).toBe('123456789012.34567890123456789')
   })
 })
