@@ -2,7 +2,7 @@
 
 import { useAccount, useChainId } from 'wagmi'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useAppStore } from '@/lib/store'
 import Header from '@/components/Header'
 import TokenTable from '@/components/TokenTable'
@@ -14,7 +14,6 @@ export default function OraclePage() {
   const { address, isConnected } = useAccount()
   const chainId = useChainId()
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const {
@@ -36,16 +35,7 @@ export default function OraclePage() {
     }
   }, [isConnected, router])
 
-  useEffect(() => {
-    if (address && chainId) {
-      // Reset chat and portfolio when chain changes
-      useAppStore.getState().clearChat()
-      setPortfolio(null) // Reset portfolio to show button
-      fetchPortfolio()
-    }
-  }, [address, chainId])
-
-  const fetchPortfolio = async () => {
+  const fetchPortfolio = useCallback(async () => {
     if (!address || !chainId) return
 
     setLoadingPortfolio(true)
@@ -67,7 +57,18 @@ export default function OraclePage() {
     } finally {
       setLoadingPortfolio(false)
     }
-  }
+  }, [address, chainId, setLoadingPortfolio, setPortfolio, setTokenBalances])
+
+  useEffect(() => {
+    if (address && chainId) {
+      // Reset chat and portfolio when chain changes
+      useAppStore.getState().clearChat()
+      setPortfolio(null) // Reset portfolio to show button
+      fetchPortfolio()
+    }
+  }, [address, chainId, fetchPortfolio, setPortfolio])
+
+  
 
   const generateFortune = async () => {
     if (!portfolio) return
@@ -118,14 +119,14 @@ export default function OraclePage() {
                   latestMessage.content = content
                 }
               }
-            } catch (e) {
+            } catch {
               // Ignore parsing errors
             }
           }
         }
       }
-    } catch (err) {
-      console.error('Error generating fortune:', err)
+    } catch {
+      console.error('Error generating fortune')
     } finally {
       setGeneratingFortune(false)
     }
@@ -195,14 +196,14 @@ export default function OraclePage() {
                   useAppStore.setState({ chatMessages: [...messages] })
                 }
               }
-            } catch (e) {
+            } catch {
               // Ignore parsing errors
             }
           }
         }
       }
-    } catch (err) {
-      console.error('Error getting response:', err)
+    } catch {
+      console.error('Error getting response')
     } finally {
       setGeneratingResponse(false)
     }

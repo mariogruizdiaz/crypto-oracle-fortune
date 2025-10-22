@@ -3,12 +3,12 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount, useChainId } from 'wagmi'
 import { useAppStore } from '@/lib/store'
-import { zetaTestnet, sepolia } from '@/lib/chains'
+// import { zetaTestnet, sepolia } from '@/lib/chains'
 
 export default function Header() {
   const { address } = useAccount()
   const chainId = useChainId()
-  const { selectedChainId, setSelectedChainId } = useAppStore()
+  const { selectedChainId } = useAppStore()
 
   const getChainName = (chainId: number) => {
     if (chainId === 7001) return 'ZetaChain Testnet'

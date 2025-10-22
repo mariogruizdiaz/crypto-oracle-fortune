@@ -1,16 +1,44 @@
 import { describe, it, expect } from 'vitest'
 import { generateFortunePrompt, generateFollowUpPrompt } from '../prompts'
+import { PortfolioSummary, TokenBalance } from '../portfolio'
+import { Token } from '../tokens'
 
 describe('AI Prompts', () => {
-  const mockPortfolio = {
+  const ethToken: Token = {
+    address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    symbol: 'ETH',
+    name: 'Ethereum',
+    decimals: 18,
+    chainId: 1,
+  }
+
+  const usdcToken: Token = {
+    address: '0x0000000000000000000000000000000000000001',
+    symbol: 'USDC',
+    name: 'USD Coin',
+    decimals: 6,
+    chainId: 1,
+  }
+
+  const daiToken: Token = {
+    address: '0x0000000000000000000000000000000000000002',
+    symbol: 'DAI',
+    name: 'Dai',
+    decimals: 18,
+    chainId: 1,
+  }
+
+  const mockTopTokens: TokenBalance[] = [
+    { token: ethToken, balance: '1000000000000000000', balanceFormatted: '1', usdValue: 2000, percentage: 80 },
+    { token: usdcToken, balance: '400000000', balanceFormatted: '400', usdValue: 400, percentage: 16 },
+    { token: daiToken, balance: '100000000000000000000', balanceFormatted: '100', usdValue: 100, percentage: 4 },
+  ]
+
+  const mockPortfolio: PortfolioSummary = {
     totalValue: 2500,
     tokenCount: 3,
-    topTokens: [
-      { token: { symbol: 'ETH' }, usdValue: 2000, percentage: 80 },
-      { token: { symbol: 'USDC' }, usdValue: 400, percentage: 16 },
-      { token: { symbol: 'DAI' }, usdValue: 100, percentage: 4 },
-    ],
-    riskLevel: 'high' as const,
+    topTokens: mockTopTokens,
+    riskLevel: 'high',
     concentration: 0.85,
   }
 

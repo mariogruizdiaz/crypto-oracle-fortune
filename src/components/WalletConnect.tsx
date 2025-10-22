@@ -6,7 +6,7 @@ import { useAppStore } from '@/lib/store'
 import { useEffect } from 'react'
 
 export default function WalletConnect() {
-  const { address, isConnected } = useAccount()
+  const { isConnected } = useAccount()
   const chainId = useChainId()
   const { setWalletConnected, setSelectedChainId } = useAppStore()
 

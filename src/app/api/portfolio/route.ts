@@ -44,8 +44,8 @@ export async function GET(request: NextRequest) {
       let nativeBalance = BigInt(0)
       try {
         nativeBalance = await client.getBalance({ address })
-      } catch (error) {
-        console.warn('Failed to get native balance:', error)
+        } catch {
+        console.warn('Failed to get native balance')
         // Continue with 0 balance instead of failing completely
       }
       
@@ -84,7 +84,7 @@ export async function GET(request: NextRequest) {
             args: [address] as const,
           })
           balances.push({ result: balance })
-        } catch (error) {
+        } catch {
           // Silently handle contract errors (contract doesn't exist, no balanceOf function, etc.)
           console.log(`Skipping ${token.symbol} - contract not available on this network`)
           balances.push({ result: BigInt(0) })

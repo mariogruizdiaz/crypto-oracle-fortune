@@ -12,12 +12,11 @@ export default function FortuneBox({ onGenerateFortune, onClearChat }: FortuneBo
   const { 
     chatMessages, 
     isGeneratingFortune, 
-    isGeneratingResponse,
     portfolio 
   } = useAppStore()
 
   const oracleMessages = chatMessages.filter(msg => msg.type === 'oracle')
-  const userMessages = chatMessages.filter(msg => msg.type === 'user')
+  // const userMessages = chatMessages.filter(msg => msg.type === 'user')
   
   // Show button if no fortune yet OR if we have a new portfolio (chain change)
   const shouldShowButton = oracleMessages.length === 0 || !portfolio
@@ -81,7 +80,7 @@ export default function FortuneBox({ onGenerateFortune, onClearChat }: FortuneBo
             className="space-y-6"
           >
             {/* Show all chat messages */}
-            {chatMessages.map((message, index) => (
+            {chatMessages.map((message) => (
               <div
                 key={message.id}
                 className={`flex items-start gap-4 ${

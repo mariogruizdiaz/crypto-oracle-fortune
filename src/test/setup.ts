@@ -39,7 +39,7 @@ vi.mock('@rainbow-me/rainbowkit', () => {
 vi.mock('framer-motion', () => {
   return {
     motion: {
-      div: ({ children, ...props }: Record<string, unknown>) => 'div',
+      div: () => 'div',
     },
     AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
   }

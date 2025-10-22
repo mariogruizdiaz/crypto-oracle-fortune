@@ -1,7 +1,6 @@
 import { Address } from 'viem'
-import { Token } from './tokens'
 import { TokenBalance } from './portfolio'
-import { getTokenList, getTokenByAddress } from './tokens'
+import { getTokenList } from './tokens'
 import { getTokenPrices } from './prices'
 import { formatTokenBalance } from './portfolio'
 
@@ -12,18 +11,18 @@ export interface IBlockchainProvider {
 }
 
 export class WagmiAdapter implements IBlockchainProvider {
-  private wagmiClient: unknown
-  private publicClient: unknown
+  private wagmiClient: WagmiClientLike
+  private publicClient: PublicClientLike
 
-  constructor(wagmiClient: unknown, publicClient: unknown) {
+  constructor(wagmiClient: WagmiClientLike, publicClient: PublicClientLike) {
     this.wagmiClient = wagmiClient
     this.publicClient = publicClient
   }
 
   async connectWallet(): Promise<Address | null> {
     try {
-      const accounts = await (this.wagmiClient as any).getAccount()
-      return accounts.address || null
+      const account = await this.wagmiClient.getAccount()
+      return (account.address as Address | null) || null
     } catch (error) {
       console.error('Error connecting wallet:', error)
       return null
@@ -35,13 +34,21 @@ export class WagmiAdapter implements IBlockchainProvider {
       // Get token list for the chain
       const tokens = await getTokenList(chainId)
       
-      // Get native balance
-      const nativeBalance = await (this.publicClient as any).getBalance({ address })
-      
       // Get token balances using multicall
       const tokenAddresses = tokens.map(token => token.address)
-      const balanceCalls = tokenAddresses.map(address => ({
-        address: address as Address,
+      const balanceCalls: ReadonlyArray<{
+        address: Address
+        abi: ReadonlyArray<{
+          name: 'balanceOf'
+          type: 'function'
+          stateMutability: 'view'
+          inputs: ReadonlyArray<{ name: string; type: 'address' }>
+          outputs: ReadonlyArray<{ name: string; type: 'uint256' }>
+        }>
+        functionName: 'balanceOf'
+        args: ReadonlyArray<Address>
+      }> = tokenAddresses.map(tokenAddress => ({
+        address: tokenAddress as Address,
         abi: [
           {
             name: 'balanceOf',
@@ -50,12 +57,12 @@ export class WagmiAdapter implements IBlockchainProvider {
             inputs: [{ name: 'account', type: 'address' }],
             outputs: [{ name: '', type: 'uint256' }],
           },
-        ],
+        ] as const,
         functionName: 'balanceOf',
-        args: [address],
+        args: [address] as const,
       }))
 
-      const balances = await (this.publicClient as any).multicall({
+      const balances = await this.publicClient.multicall({
         contracts: balanceCalls,
       })
 
@@ -68,7 +75,7 @@ export class WagmiAdapter implements IBlockchainProvider {
       
       for (let i = 0; i < tokens.length; i++) {
         const token = tokens[i]
-        const balance = balances[i].result as bigint
+        const balance = (balances[i]?.result ?? BigInt(0)) as bigint
         
         if (balance > BigInt(0)) {
           const balanceFormatted = formatTokenBalance(balance.toString(), token.decimals)
@@ -93,11 +100,35 @@ export class WagmiAdapter implements IBlockchainProvider {
 
   async switchNetwork(chainId: number): Promise<boolean> {
     try {
-      await (this.wagmiClient as any).switchChain({ chainId })
+      await this.wagmiClient.switchChain({ chainId })
       return true
     } catch (error) {
       console.error('Error switching network:', error)
       return false
     }
   }
+}
+
+// Minimal client types to avoid using any
+type WagmiClientLike = {
+  getAccount: () => Promise<{ address?: Address | null }>
+  switchChain: (args: { chainId: number }) => Promise<void>
+}
+
+type PublicClientLike = {
+  getBalance: (args: { address: Address }) => Promise<bigint>
+  multicall: (args: {
+    contracts: ReadonlyArray<{
+      address: Address
+      abi: ReadonlyArray<{
+        name: 'balanceOf'
+        type: 'function'
+        stateMutability: 'view'
+        inputs: ReadonlyArray<{ name: string; type: 'address' }>
+        outputs: ReadonlyArray<{ name: string; type: 'uint256' }>
+      }>
+      functionName: 'balanceOf'
+      args: ReadonlyArray<Address>
+    }>
+  }) => Promise<Array<{ result?: bigint }>>
 }

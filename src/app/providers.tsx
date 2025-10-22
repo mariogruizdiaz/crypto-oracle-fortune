@@ -4,7 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { WagmiProvider } from 'wagmi'
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { config } from '@/lib/wagmi'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import '@rainbow-me/rainbowkit/styles.css'
 
 // Suppress WalletConnect errors in development
@@ -20,7 +20,7 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
     try {
       originalError = console.error
       originalWarn = console.warn
-    } catch (e) {
+    } catch {
       // If we can't get original functions, skip suppression
       originalError = () => {}
       originalWarn = () => {}
@@ -47,10 +47,10 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
       // Only call originalError for non-WalletConnect errors
       try {
         originalError(...args)
-      } catch (originalError) {
+      } catch {
         // Silent fail if originalError fails
       }
-    } catch (e) {
+    } catch {
       // Silent fail if error handling fails
     }
   }
@@ -75,10 +75,10 @@ if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
       // Only call originalWarn for non-WalletConnect warnings
       try {
         originalWarn(...args)
-      } catch (originalWarn) {
+      } catch {
         // Silent fail if originalWarn fails
       }
-    } catch (e) {
+    } catch {
       // Silent fail if warn handling fails
     }
   }
